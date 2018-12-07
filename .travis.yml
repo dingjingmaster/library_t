@@ -10,8 +10,5 @@ compiler:
 ## 再安装之前
 #before_install: make
 
-install:
-    - apt-get install make gcc
-
 # 构建
 script: make
