@@ -1,0 +1,6 @@
+language: c                 # 语言环境
+
+notifications:              # 每次构建提醒
+    email: false
+
+sudo: false                 # 开启基于容器的 travis CI 任务
