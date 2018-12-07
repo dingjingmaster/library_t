@@ -1,6 +1,6 @@
-#ifndef AVL_TREE_H
-#define AVL_TREE_H
-#include "ret.h"
+#ifndef JAVL_TREE_H
+#define JAVL_TREE_H
+#include "jret.h"
 
 /**
  *  平衡二叉树
@@ -24,31 +24,31 @@ extern "C" {
 #endif
 
 /* AVL 平衡二叉树 */
-typedef struct _AVLTree AVLTree;
+typedef struct _JAVLTree JAVLTree;
 
 /* AVL 平衡二叉树的 key */
-typedef void* AVLTreeKey;
+typedef void* JAVLTreeKey;
 
 /* AVL 平衡二叉树的 value */
-typedef void* AVLTreeValue;
+typedef void* JAVLTreeValue;
 
 /* AVL 平衡二叉树 节点 */
-typedef struct _AVLTreeNode AVLTreeNode;
+typedef struct _JAVLTreeNode JAVLTreeNode;
 
 /* AVL 平衡二叉树值为空 */
-#define AVL_TREE_NULL RET_PTR_NULL
+#define JAVL_TREE_NULL JRET_PTR_NULL
 
 /* 可以有 左孩子 还是 右孩子 */
 typedef enum {
-  AVL_TREE_NODE_LEFT = 0,
-  AVL_TREE_NODE_RIGHT = 1
-} AVLTreeNodeSide;
+  JAVL_TREE_NODE_LEFT = 0,
+  JAVL_TREE_NODE_RIGHT = 1
+} JAVLTreeNodeSide;
 
 
 /**
  * 打印树的 key 值 key
  */
-typedef void (* tree_print_key)(AVLTreeKey key);
+typedef void (* tree_print_key)(JAVLTreeKey key);
 
 
 /**
@@ -61,7 +61,7 @@ typedef void (* tree_print_key)(AVLTreeKey key);
  *                          value1 > value2     返回： RET_BIGGER
  *                          value1 == value2    返回:  RET_EQUAL
  */
-typedef int (*AVLTreeCompareFunc)(AVLTreeKey value1, AVLTreeKey value2);
+typedef int (*JAVLTreeCompareFunc)(JAVLTreeKey value1, JAVLTreeKey value2);
 
 
 /**
@@ -71,7 +71,7 @@ typedef int (*AVLTreeCompareFunc)(AVLTreeKey value1, AVLTreeKey value2);
  *  @return                 成功: 返回树
  *                          失败: 返回 RET_PTR_NULL
  */
-AVLTree* avl_tree_new(AVLTreeCompareFunc compare_func);
+JAVLTree* avl_tree_new(JAVLTreeCompareFunc compare_func);
 
 
 /**
@@ -79,7 +79,7 @@ AVLTree* avl_tree_new(AVLTreeCompareFunc compare_func);
  *
  *  @param tree             树，要销毁
  */
-void avl_tree_free(AVLTree* tree);
+void avl_tree_free(JAVLTree* tree);
 
 
 /**
@@ -91,7 +91,7 @@ void avl_tree_free(AVLTree* tree);
  *  @return                 成功：返回新树的Node
  *                          失败：RET_PTR_NULL 注意：就算失败也不会内存泄漏
  */
-AVLTreeNode* avl_tree_insert(AVLTree* tree, AVLTreeKey key, AVLTreeValue value);
+JAVLTreeNode* avl_tree_insert(JAVLTree* tree, JAVLTreeKey key, JAVLTreeValue value);
 
 
 /**
@@ -100,7 +100,7 @@ AVLTreeNode* avl_tree_insert(AVLTree* tree, AVLTreeKey key, AVLTreeValue value);
  *  @param tree             树
  *  @param node             要删除的节点
  */
-void avl_tree_remove_node(AVLTree* tree, AVLTreeNode* node);
+void avl_tree_remove_node(JAVLTree* tree, JAVLTreeNode* node);
 
 
 /**
@@ -112,7 +112,7 @@ void avl_tree_remove_node(AVLTree* tree, AVLTreeNode* node);
  *  @return                 若删除则为   返回 RET_OK
  *                          没找到则为   返回 RET_NOTFOUND
  */
-int avl_tree_remove(AVLTree* tree, AVLTreeKey key);
+int avl_tree_remove(JAVLTree* tree, JAVLTreeKey key);
 
 
 /**
@@ -124,7 +124,7 @@ int avl_tree_remove(AVLTree* tree, AVLTreeKey key);
  * @return                成功：返回找到的节点
  *                        失败：返回 RET_PTR_NULL
  */
-AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key);
+JAVLTreeNode *avl_tree_lookup_node(JAVLTree *tree, JAVLTreeKey key);
 
 
 /**
@@ -136,7 +136,7 @@ AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key);
  * @return                成功：返回找到的值
  *                        失败：返回 AVL_PTR_NULL
  */
-AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
+JAVLTreeValue avl_tree_lookup(JAVLTree *tree, JAVLTreeKey key);
 
 
 /**
@@ -146,7 +146,7 @@ AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
  * @return                成功：返回树的根节点
  *                        失败：RET_PTR_NULL
  */
-AVLTreeNode* avl_tree_root_node(AVLTree *tree);
+JAVLTreeNode* avl_tree_root_node(JAVLTree *tree);
 
 
 /**
@@ -155,7 +155,7 @@ AVLTreeNode* avl_tree_root_node(AVLTree *tree);
  * @param node            树
  * @return                返回给定节点的键
  */
-AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
+JAVLTreeKey avl_tree_node_key(JAVLTreeNode *node);
 
 
 /**
@@ -164,7 +164,7 @@ AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
  * @param node            树
  * @return                返回给定节点的值
  */
-AVLTreeValue avl_tree_node_value(AVLTreeNode *node);
+JAVLTreeValue avl_tree_node_value(JAVLTreeNode *node);
 
 
 /**
@@ -176,7 +176,7 @@ AVLTreeValue avl_tree_node_value(AVLTreeNode *node);
  *
  *                        失败：返回 RET_PTR_NULL
  */
-AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
+JAVLTreeNode *avl_tree_node_child(JAVLTreeNode *node, JAVLTreeNodeSide side);
 
 
 /**
@@ -186,7 +186,7 @@ AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
  * @return                成功：返回树节点的父节点
  *                        失败：返回 RET_PTR_NULL
  */
-AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
+JAVLTreeNode *avl_tree_node_parent(JAVLTreeNode *node);
 
 
 /**
@@ -196,7 +196,7 @@ AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
  *
  * @return                子树的高度
  */
-int avl_tree_subtree_height(AVLTreeNode* node);
+int avl_tree_subtree_height(JAVLTreeNode* node);
 
 
 /**
@@ -206,7 +206,7 @@ int avl_tree_subtree_height(AVLTreeNode* node);
  *
  * @return                返回由键组成的数组
  */
-AVLTreeValue *avl_tree_to_array(AVLTree *tree);
+JAVLTreeValue *avl_tree_to_array(JAVLTree *tree);
 
 
 /**
@@ -216,24 +216,24 @@ AVLTreeValue *avl_tree_to_array(AVLTree *tree);
  *
  * @return                树的节点数
  */
-unsigned int avl_tree_num_entries(AVLTree *tree);
+unsigned int avl_tree_num_entries(JAVLTree *tree);
 
 /**
  * 树的前序遍历
  */
-void before_print_tree(AVLTreeNode* node, tree_print_key print);
+void before_print_tree(JAVLTreeNode* node, tree_print_key print);
 
 
 /**
  *  树的中序遍历
  */
-void middle_print_tree(AVLTreeNode* node, tree_print_key print);
+void middle_print_tree(JAVLTreeNode* node, tree_print_key print);
 
 
 /**
  *  树的后序遍历
  */
-void postorder_print_tree(AVLTreeNode* node, tree_print_key print);
+void postorder_print_tree(JAVLTreeNode* node, tree_print_key print);
 #ifdef __cplusplus
 }
 #endif

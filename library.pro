@@ -13,17 +13,17 @@ INCLUDEPATH += \
 
 # head
 HEADERS += \
-    src/data_struct/binary_heap.h \
-    src/data_struct/avl_tree.h\
-    src/base/ret.h
+    src/base/jret.h \
+    src/data_struct/javl_tree.h \
+    src/data_struct/jbinary_heap.h
 
 # source
 SOURCES += \
-    src/data_struct/binary_heap.c \
-    src/data_struct/avl_tree.c
+    src/data_struct/javl_tree.c \
+    src/data_struct/jbinary_heap.c
 
 #========================== demo ========================
 SOURCES += \
 #    main.c\
 #    example/avl_tree_demo.c\
-    example/binary_heap_demo.c\
+#    example/binary_heap_demo.c\

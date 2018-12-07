@@ -1,14 +1,14 @@
-#include "binary_heap.h"
+#include "jbinary_heap.h"
 #include <stdio.h>
 
-int compare_func(BinaryHeapValue v1, BinaryHeapValue v2) {
+int compare_func(JBinaryHeapValue v1, JBinaryHeapValue v2) {
     if ((*(int*)v1) > (*(int*)v2)) {
-        return RET_BIGGER;
+        return JRET_BIGGER;
     } else if ((*(int*)v1) < (*(int*)v2)) {
-        return RET_SMALLER;
+        return JRET_SMALLER;
     }
 
-    return RET_EQUAL;
+    return JRET_EQUAL;
 }
 
 int main(void) {
@@ -26,14 +26,14 @@ int main(void) {
     int k = 14;
     int l = 18;
 
-    BinaryHeap* minheap = RET_PTR_NULL;
-    BinaryHeap* maxheap = RET_PTR_NULL;
+    JBinaryHeap* minheap = JRET_PTR_NULL;
+    JBinaryHeap* maxheap = JRET_PTR_NULL;
 
     // 最小堆
-    minheap = binary_heap_new(BINARY_HEAP_TYPE_MIN, compare_func);
+    minheap = binary_heap_new(JBINARY_HEAP_TYPE_MIN, compare_func);
 
     // 最大堆
-    maxheap = binary_heap_new(BINARY_HEAP_TYPE_MAX, compare_func);
+    maxheap = binary_heap_new(JBINARY_HEAP_TYPE_MAX, compare_func);
 
     // 最小堆插入
     binary_heap_insert(minheap, &a);
@@ -67,7 +67,7 @@ int main(void) {
     // 最小堆输出
     printf("min heap size: %d\n", binary_heap_num(minheap));
     for(unsigned int i = binary_heap_num(minheap); i > 0; --i) {
-        BinaryHeapValue v = binary_heap_pop(minheap);
+        JBinaryHeapValue v = binary_heap_pop(minheap);
         printf("%d\t", *((int*)v));
     }
     puts("\n");

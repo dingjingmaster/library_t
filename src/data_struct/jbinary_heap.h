@@ -1,25 +1,25 @@
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
-#include "ret.h"
+#include "jret.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* 堆空值 */
-#define BINARY_HEAP_NULL RET_PTR_NULL
+#define JBINARY_HEAP_NULL JRET_PTR_NULL
 
 /* 堆类型——最大堆/最小堆 */
 typedef enum {
-    BINARY_HEAP_TYPE_MIN,
-    BINARY_HEAP_TYPE_MAX
-} BinaryHeapType;
+    JBINARY_HEAP_TYPE_MIN,
+    JBINARY_HEAP_TYPE_MAX
+} JBinaryHeapType;
 
 /* 堆结构 */
-typedef struct _BinaryHeap BinaryHeap;
+typedef struct _JBinaryHeap JBinaryHeap;
 
 /* 堆中存储的值 */
-typedef void* BinaryHeapValue;
+typedef void* JBinaryHeapValue;
 
 /**
  * 堆中用来比较大小的函数指针类型
@@ -28,7 +28,7 @@ typedef void* BinaryHeapValue;
  *          value1小于value2返回    RET_SMALLER
  *          value1大于value2返回    RET_BIGGER
  */
-typedef int (* binary_heap_compare_cb) (BinaryHeapValue value1, BinaryHeapValue value2);
+typedef int (* binary_heap_compare_cb) (JBinaryHeapValue value1, JBinaryHeapValue value2);
 
 /**
  * 创建新的堆
@@ -38,7 +38,7 @@ typedef int (* binary_heap_compare_cb) (BinaryHeapValue value1, BinaryHeapValue 
  * @return 成功：  返回新的堆
  *         失败： 返回 RET_PTR_NULL
  */
-BinaryHeap* binary_heap_new(BinaryHeapType type, binary_heap_compare_cb compareFunction);
+JBinaryHeap* binary_heap_new(JBinaryHeapType type, binary_heap_compare_cb compareFunction);
 
 
 /**
@@ -46,7 +46,7 @@ BinaryHeap* binary_heap_new(BinaryHeapType type, binary_heap_compare_cb compareF
  * @param heap:                     要是放的堆指针
  * 注意: 只释放了本堆自己申请的内存空间，至于用户自己申请的堆 value 需要用户自己去释放
  */
-void binary_heap_free(BinaryHeap* heap);
+void binary_heap_free(JBinaryHeap* heap);
 
 
 /**
@@ -57,7 +57,7 @@ void binary_heap_free(BinaryHeap* heap);
  * @return                          成功： RET_OK
  *                                  失败： RET_ERROR
  */
-int binary_heap_insert(BinaryHeap* heap, BinaryHeapValue value);
+int binary_heap_insert(JBinaryHeap* heap, JBinaryHeapValue value);
 
 
 /**
@@ -67,7 +67,7 @@ int binary_heap_insert(BinaryHeap* heap, BinaryHeapValue value);
  * @return                          成功: 返回堆顶元素
  *                                  失败: 返回 RET_PTR_NULL
  */
-BinaryHeapValue binary_heap_pop(BinaryHeap* heap);
+JBinaryHeapValue binary_heap_pop(JBinaryHeap* heap);
 
 
 /**
@@ -76,7 +76,7 @@ BinaryHeapValue binary_heap_pop(BinaryHeap* heap);
  *
  * @return                          堆中值得数量
  */
-unsigned int binary_heap_num(BinaryHeap* heap);
+unsigned int binary_heap_num(JBinaryHeap* heap);
 
 #ifdef __cplusplus
 }

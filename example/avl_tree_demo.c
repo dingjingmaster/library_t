@@ -2,26 +2,26 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "avl_tree.h"
+#include "javl_tree.h"
 
-int my_compare(AVLTreeKey value1, AVLTreeKey value2) {
+int my_compare(JAVLTreeKey value1, JAVLTreeKey value2) {
 
     if (*(int*)value1 > *(int*)value2) {
-        return RET_BIGGER;
+        return JRET_BIGGER;
     } else if (*(int*)value1 < *(int*)value2) {
-        return RET_SMALLER;
+        return JRET_SMALLER;
     }
 
-    return RET_EQUAL;
+    return JRET_EQUAL;
 }
 
-void my_print(AVLTreeKey key) {
+void my_print(JAVLTreeKey key) {
     printf("%d\t", *((int*)key));
 }
 
 
 int main(void) {
-    AVLTree* tree = avl_tree_new(my_compare);
+    JAVLTree* tree = avl_tree_new(my_compare);
 
     int values[] = { 0, 1, 2, 3, 4, 5, 6 };
     for (unsigned int i = 0; i < sizeof (values) / sizeof (int); ++ i) {
@@ -34,7 +34,7 @@ int main(void) {
     printf("delete: %d\n", avl_tree_remove(tree, &key1));                   // 能否正常使用,取决于比较函数是否正确(比较的是值,还是地址)
 
     void* res = avl_tree_lookup(tree, &key);
-    if (RET_PTR_NULL == res) {
+    if (JRET_PTR_NULL == res) {
         printf("\nNOT FOUND!\n");
     } else {
         printf("\nvalue is %d\n", *(int*)res);
