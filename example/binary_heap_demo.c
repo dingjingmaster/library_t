@@ -26,6 +26,8 @@ int main(void) {
     int k = 14;
     int l = 18;
 
+    unsigned int ii = 0;
+
     JBinaryHeap* minheap = JRET_PTR_NULL;
     JBinaryHeap* maxheap = JRET_PTR_NULL;
 
@@ -66,7 +68,7 @@ int main(void) {
 
     // 最小堆输出
     printf("min heap size: %d\n", binary_heap_num(minheap));
-    for(unsigned int i = binary_heap_num(minheap); i > 0; --i) {
+    for(ii = binary_heap_num(minheap); i > 0; --i) {
         JBinaryHeapValue v = binary_heap_pop(minheap);
         printf("%d\t", *((int*)v));
     }
@@ -74,7 +76,7 @@ int main(void) {
 
     // 最大堆输出
     printf("\nmax heap size: %d\n", binary_heap_num(maxheap));
-    for(unsigned int i = binary_heap_num(maxheap); i > 0; --i) {
+    for(ii = binary_heap_num(maxheap); i > 0; --i) {
         printf("%d\t", *((int*)binary_heap_pop(maxheap)));
     }
     puts("\n");

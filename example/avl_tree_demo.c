@@ -22,9 +22,10 @@ void my_print(JAVLTreeKey key) {
 
 int main(void) {
     JAVLTree* tree = avl_tree_new(my_compare);
-
+    unsigned int i;
     int values[] = { 0, 1, 2, 3, 4, 5, 6 };
-    for (unsigned int i = 0; i < sizeof (values) / sizeof (int); ++ i) {
+
+    for (i = 0; i < sizeof (values) / sizeof (int); ++ i) {
         printf("%d|%d\t", i, values[i]);
         avl_tree_insert(tree, &values[i], &values[i]);
     }
