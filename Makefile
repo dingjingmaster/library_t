@@ -1,5 +1,5 @@
 GCC = gcc
-flags = -g -Wall
+flags = -Wall -std=c99 #-g
 
 head = -I lib/include/
 
