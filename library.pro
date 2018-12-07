@@ -25,5 +25,5 @@ SOURCES += \
 #========================== demo ========================
 SOURCES += \
 #    main.c\
-    example/avl_tree_demo.c\
-#    example/binary_heap_demo.c\
+#    example/avl_tree_demo.c\
+    example/binary_heap_demo.c\
