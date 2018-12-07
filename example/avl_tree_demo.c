@@ -7,12 +7,12 @@
 int my_compare(AVLTreeKey value1, AVLTreeKey value2) {
 
     if (*(int*)value1 > *(int*)value2) {
-        return 1;
+        return RET_BIGGER;
     } else if (*(int*)value1 < *(int*)value2) {
-        return -1;
+        return RET_SMALLER;
     }
 
-    return 0;
+    return RET_EQUAL;
 }
 
 void my_print(AVLTreeKey key) {
@@ -34,7 +34,7 @@ int main(void) {
     printf("delete: %d\n", avl_tree_remove(tree, &key1));                   // 能否正常使用,取决于比较函数是否正确(比较的是值,还是地址)
 
     void* res = avl_tree_lookup(tree, &key);
-    if (AVL_TREE_NULL == res) {
+    if (RET_PTR_NULL == res) {
         printf("\nNOT FOUND!\n");
     } else {
         printf("\nvalue is %d\n", *(int*)res);

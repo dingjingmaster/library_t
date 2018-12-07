@@ -25,12 +25,12 @@ demo:$(test_target)
 
 library:$(core_obj)
 	ar -crv $(library) $^
-	cp $(core_head) -t "lib/include/"
 	mv $(library) -t "lib"
 
 reply:
 	mkdir -p "lib/include/"
 	mkdir -p "bin/"
+	cp $(core_head) -t "lib/include/"
 
 %.run:%.o $(test_obj)
 	$(GCC) -o $@ $< $(flags) $(head) $(lib)

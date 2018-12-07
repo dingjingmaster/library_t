@@ -8,22 +8,22 @@ QMAKE_CXXFLAGS += -Wall
 
 # head path
 INCLUDEPATH += \
-    src/data_struct/
+    src/base/\
+    src/data_struct/\
 
 # head
 HEADERS += \
     src/data_struct/binary_heap.h \
     src/data_struct/avl_tree.h\
+    src/base/ret.h
 
 # source
 SOURCES += \
     src/data_struct/binary_heap.c \
-    src/data_struct/avl_tree.c\
+    src/data_struct/avl_tree.c
 
 #========================== demo ========================
 SOURCES += \
-#    demo/avl_tree_demo.c\
-    demo/binary_heap_demo.c
-
-#TARGET += \
-#    demo/avl_tree_demo
+#    main.c\
+#    example/avl_tree_demo.c\
+    example/binary_heap_demo.c\

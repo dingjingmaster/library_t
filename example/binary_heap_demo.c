@@ -3,12 +3,12 @@
 
 int compare_func(BinaryHeapValue v1, BinaryHeapValue v2) {
     if ((*(int*)v1) > (*(int*)v2)) {
-        return 1;
+        return RET_BIGGER;
     } else if ((*(int*)v1) < (*(int*)v2)) {
-        return -1;
+        return RET_SMALLER;
     }
 
-    return 0;
+    return RET_EQUAL;
 }
 
 int main(void) {
@@ -26,8 +26,8 @@ int main(void) {
     int k = 14;
     int l = 18;
 
-    BinaryHeap* minheap = NULL;
-    BinaryHeap* maxheap = NULL;
+    BinaryHeap* minheap = RET_PTR_NULL;
+    BinaryHeap* maxheap = RET_PTR_NULL;
 
     // 最小堆
     minheap = binary_heap_new(BINARY_HEAP_TYPE_MIN, compare_func);
@@ -70,10 +70,12 @@ int main(void) {
         BinaryHeapValue v = binary_heap_pop(minheap);
         printf("%d\t", *((int*)v));
     }
+    puts("\n");
 
     // 最大堆输出
     printf("\nmax heap size: %d\n", binary_heap_num(maxheap));
     for(unsigned int i = binary_heap_num(maxheap); i > 0; --i) {
         printf("%d\t", *((int*)binary_heap_pop(maxheap)));
     }
+    puts("\n");
 }

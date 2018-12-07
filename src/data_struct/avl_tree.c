@@ -22,7 +22,7 @@ struct _AVLTree {
 
 /* 递归删除子树节点(后序遍历) */
 static void avl_tree_subtree(AVLTree* tree, AVLTreeNode* node) {
-    if (NULL == node) {
+    if (RET_PTR_NULL == node) {
         return;
     }
 
@@ -34,8 +34,8 @@ static void avl_tree_subtree(AVLTree* tree, AVLTreeNode* node) {
 /* 更新子节点高度值 */
 static void avl_tree_update_height(AVLTreeNode* node) {
 
-    AVLTreeNode*            leftSubTree = NULL;
-    AVLTreeNode*            rightSubTree = NULL;
+    AVLTreeNode*            leftSubTree = RET_PTR_NULL;
+    AVLTreeNode*            rightSubTree = RET_PTR_NULL;
     int                     leftHeight, rightHeight = 0;
 
     leftSubTree = node->children[AVL_TREE_NODE_LEFT];
@@ -68,12 +68,12 @@ static AVLTreeNodeSide avl_tree_node_parent_sider(AVLTreeNode* node) {
 static void avl_tree_node_replace(AVLTree* tree, AVLTreeNode* node1, AVLTreeNode* node2) {
     AVLTreeNodeSide             side;
 
-    if(NULL != node2) {
+    if(RET_PTR_NULL != node2) {
         node2->parent = node1->parent;              // 将 node2 变为该子树的根结点
     }
 
     /* 是否是根节点 */
-    if(NULL == node1->parent) {                     // 检测 node1 之前是不是根节点
+    if(RET_PTR_NULL == node1->parent) {             // 检测 node1 之前是不是根节点
         tree->rootNode = node2;
     } else {
         side = avl_tree_node_parent_sider(node1);   // node1 是左子树还是右子树
@@ -104,7 +104,7 @@ static void avl_tree_node_replace(AVLTree* tree, AVLTreeNode* node1, AVLTreeNode
  */
 static AVLTreeNode *avl_tree_rotate(AVLTree *tree, AVLTreeNode *node, AVLTreeNodeSide direction) {
 
-    AVLTreeNode                     *newRoot;
+    AVLTreeNode                     *newRoot = RET_PTR_NULL;
 
     /**
      * 针对如下失衡子树(括号里表示高度)
@@ -130,7 +130,7 @@ static AVLTreeNode *avl_tree_rotate(AVLTree *tree, AVLTreeNode *node, AVLTreeNod
     newRoot->children[direction] = node;                                                // y 的右节点指向 z
     node->parent = newRoot;                                                             // 更新 z 指向的父节点
 
-    if (node->children[1 - direction] != NULL) {
+    if (node->children[1 - direction] != RET_PTR_NULL) {
         node->children[1 - direction]->parent = node;
     }
 
@@ -143,7 +143,7 @@ static AVLTreeNode *avl_tree_rotate(AVLTree *tree, AVLTreeNode *node, AVLTreeNod
 
 /* 返回子树高度 */
 int avl_tree_subtree_height(AVLTreeNode* node) {
-    if (NULL == node) {
+    if (RET_PTR_NULL == node) {
         return 0;
     }
 
@@ -152,9 +152,9 @@ int avl_tree_subtree_height(AVLTreeNode* node) {
 
 /* avl 树平衡 */
 static AVLTreeNode *avl_tree_node_balance(AVLTree *tree, AVLTreeNode *node) {
-    AVLTreeNode *left_subtree;
-    AVLTreeNode *right_subtree;
-    AVLTreeNode *child;
+    AVLTreeNode *left_subtree = RET_PTR_NULL;
+    AVLTreeNode *right_subtree = RET_PTR_NULL;
+    AVLTreeNode *child = RET_PTR_NULL;
     int diff;
 
     left_subtree = node->children[AVL_TREE_NODE_LEFT];
@@ -190,7 +190,7 @@ static AVLTreeNode *avl_tree_node_balance(AVLTree *tree, AVLTreeNode *node) {
 static void avl_tree_balance_to_root(AVLTree *tree, AVLTreeNode *node) {
     AVLTreeNode *rover;
     rover = node;
-    while (rover != NULL) {
+    while (rover != RET_PTR_NULL) {
         rover = avl_tree_node_balance(tree, rover);
         rover = rover->parent;
     }
@@ -199,13 +199,13 @@ static void avl_tree_balance_to_root(AVLTree *tree, AVLTreeNode *node) {
 
 /* 创建 */
 AVLTree* avl_tree_new(AVLTreeCompareFunc compare_func){
-    AVLTree*                newTree;
+    AVLTree*                newTree = RET_PTR_NULL;
 
     newTree = (AVLTree*)malloc(sizeof (AVLTree));
-    if(NULL == newTree) {
-        return NULL;
+    if(RET_PTR_NULL == newTree) {
+        return RET_PTR_NULL;
     }
-    newTree->rootNode = NULL;
+    newTree->rootNode = RET_PTR_NULL;
     newTree->compareFunc = compare_func;
     newTree->numNodes = 0;
 
@@ -231,9 +231,9 @@ AVLTreeNode *avl_tree_insert(AVLTree *tree, AVLTreeKey key, AVLTreeValue value) 
     AVLTreeNode *previousNode;
 
     rover = &tree->rootNode;
-    previousNode = NULL;
+    previousNode = RET_PTR_NULL;
 
-    while (*rover != NULL) {
+    while (*rover != RET_PTR_NULL) {
         previousNode = *rover;
         if (tree->compareFunc(key, (*rover)->key) < 0) {
             rover = &((*rover)->children[AVL_TREE_NODE_LEFT]);
@@ -243,12 +243,12 @@ AVLTreeNode *avl_tree_insert(AVLTree *tree, AVLTreeKey key, AVLTreeValue value) 
     }
 
     newNode = (AVLTreeNode *) malloc(sizeof(AVLTreeNode));          // 找到叶子节点后根据 key value 创建新节点
-    if (NULL == newNode) {
-        return NULL;
+    if (RET_PTR_NULL == newNode) {
+        return RET_PTR_NULL;
     }
 
-    newNode->children[AVL_TREE_NODE_LEFT] = NULL;
-    newNode->children[AVL_TREE_NODE_RIGHT] = NULL;
+    newNode->children[AVL_TREE_NODE_LEFT] = RET_PTR_NULL;
+    newNode->children[AVL_TREE_NODE_RIGHT] = RET_PTR_NULL;
     newNode->parent = previousNode;                                 // 将新节点加入树中
     newNode->key = key;
     newNode->value = value;
@@ -277,8 +277,8 @@ static AVLTreeNode *avl_tree_node_get_replacement(AVLTree *tree, AVLTreeNode *no
     rightSubtree = node->children[AVL_TREE_NODE_RIGHT];
 
     // 没有子树则开始返回(迭代结束条件)
-    if (NULL == leftSubtree && NULL == rightSubtree) {
-        return NULL;
+    if (RET_PTR_NULL == leftSubtree && RET_PTR_NULL == rightSubtree) {
+        return RET_PTR_NULL;
     }
 
     leftHeight = avl_tree_subtree_height(leftSubtree);
@@ -290,7 +290,7 @@ static AVLTreeNode *avl_tree_node_get_replacement(AVLTree *tree, AVLTreeNode *no
         side = AVL_TREE_NODE_LEFT;
     }
     result = node->children[side];
-    while (result->children[1 - side] != NULL) {
+    while (result->children[1 - side] != RET_PTR_NULL) {
         result = result->children[1 - side];
     }
     child = result->children[side];
@@ -311,8 +311,8 @@ void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node) {
     int i;
 
     swapNode = avl_tree_node_get_replacement(tree, node);
-    if (NULL == swapNode) {
-        avl_tree_node_replace(tree, node, NULL);
+    if (RET_PTR_NULL == swapNode) {
+        avl_tree_node_replace(tree, node, RET_PTR_NULL);
         balanceStartpoint = node->parent;
 
     } else {
@@ -323,7 +323,7 @@ void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node) {
         }
         for (i=0; i<2; ++i) {
             swapNode->children[i] = node->children[i];
-            if (swapNode->children[i] != NULL) {
+            if (swapNode->children[i] != RET_PTR_NULL) {
                 swapNode->children[i]->parent = swapNode;
             }
         }
@@ -338,10 +338,10 @@ void avl_tree_remove_node(AVLTree *tree, AVLTreeNode *node) {
 
 /* 通过比较 key 的值进行删除 */
 int avl_tree_remove(AVLTree *tree, AVLTreeKey key) {
-    AVLTreeNode                         *node;
+    AVLTreeNode                         *node = RET_PTR_NULL;
 
     node = avl_tree_lookup_node(tree, key);
-    if (node == NULL) {
+    if (node == RET_PTR_NULL) {
         return 0;
     }
     avl_tree_remove_node(tree, node);
@@ -354,11 +354,11 @@ int avl_tree_remove(AVLTree *tree, AVLTreeKey key) {
  *  查询 key 在子树种的节点
  */
 AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key) {
-    AVLTreeNode                         *node;
+    AVLTreeNode                         *node = RET_PTR_NULL;
     int                                 diff;
 
     node = tree->rootNode;
-    while (node != NULL) {
+    while (node != RET_PTR_NULL) {
         diff = tree->compareFunc(key, node->key);
         if (diff == 0) {
             return node;
@@ -369,14 +369,14 @@ AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key) {
         }
     }
 
-    return NULL;
+    return RET_PTR_NULL;
 }
 
 AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key) {
-    AVLTreeNode *node;
+    AVLTreeNode *node = RET_PTR_NULL;
 
     node = avl_tree_lookup_node(tree, key);
-    if (node == NULL) {
+    if (node == RET_PTR_NULL) {
         return AVL_TREE_NULL;
     } else {
         return node->value;
@@ -400,7 +400,7 @@ AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side) {
     if (side == AVL_TREE_NODE_LEFT || side == AVL_TREE_NODE_RIGHT) {
         return node->children[side];
     } else {
-        return NULL;
+        return RET_PTR_NULL;
     }
 }
 
@@ -414,7 +414,7 @@ unsigned int avl_tree_num_entries(AVLTree *tree) {
 }
 
 static void avl_tree_to_array_add_subtree(AVLTreeNode *subtree, AVLTreeValue *array, int *index) {
-    if (subtree == NULL) {
+    if (subtree == RET_PTR_NULL) {
         return;
     }
 
@@ -430,8 +430,8 @@ AVLTreeValue *avl_tree_to_array(AVLTree *tree) {
     int index = 0;
 
     array = malloc(sizeof(AVLTreeValue) * tree->numNodes);
-    if (array == NULL) {
-        return NULL;
+    if (array == RET_PTR_NULL) {
+        return RET_PTR_NULL;
     }
     avl_tree_to_array_add_subtree(tree->rootNode, array, &index);
 
@@ -440,7 +440,7 @@ AVLTreeValue *avl_tree_to_array(AVLTree *tree) {
 
 
 void before_print_tree(AVLTreeNode* node, tree_print_key print) {
-    if (NULL == node) {
+    if (RET_PTR_NULL == node) {
         return;
     }
 
@@ -452,8 +452,7 @@ void before_print_tree(AVLTreeNode* node, tree_print_key print) {
 
 
 void middle_print_tree(AVLTreeNode* node, tree_print_key print) {
-
-    if (NULL == node) {
+    if (RET_PTR_NULL == node) {
         return;
     }
 
@@ -464,7 +463,7 @@ void middle_print_tree(AVLTreeNode* node, tree_print_key print) {
 
 
 void postorder_print_tree(AVLTreeNode* node, tree_print_key print) {
-    if (NULL == node) {
+    if (RET_PTR_NULL == node) {
         return;
     }
 

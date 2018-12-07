@@ -1,5 +1,6 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
+#include "ret.h"
 
 /**
  *  平衡二叉树
@@ -35,7 +36,7 @@ typedef void* AVLTreeValue;
 typedef struct _AVLTreeNode AVLTreeNode;
 
 /* AVL 平衡二叉树值为空 */
-#define AVL_TREE_NULL ((void*) 0)
+#define AVL_TREE_NULL RET_PTR_NULL
 
 /* 可以有 左孩子 还是 右孩子 */
 typedef enum {
@@ -55,9 +56,10 @@ typedef void (* tree_print_key)(AVLTreeKey key);
  *
  *  @param value1           第一个key
  *  @param value2           第二个key
- *  @return                 value1 <<< value2  返回负值
- *                          value1 >>> value2  返回正值
- *                          value1 === value2  返回 0
+ *
+ *  @return                 value1 < value2     返回： RET_SMALLER
+ *                          value1 > value2     返回： RET_BIGGER
+ *                          value1 == value2    返回:  RET_EQUAL
  */
 typedef int (*AVLTreeCompareFunc)(AVLTreeKey value1, AVLTreeKey value2);
 
@@ -67,7 +69,7 @@ typedef int (*AVLTreeCompareFunc)(AVLTreeKey value1, AVLTreeKey value2);
  *
  *  @param tree             树，以便使用完后销毁
  *  @return                 成功: 返回树
- *                          失败: 返回 NUKK
+ *                          失败: 返回 RET_PTR_NULL
  */
 AVLTree* avl_tree_new(AVLTreeCompareFunc compare_func);
 
@@ -87,7 +89,7 @@ void avl_tree_free(AVLTree* tree);
  *  @param key              要插入的 key
  *  @value                  要插入的 value
  *  @return                 成功：返回新树的Node
- *                          失败：NULL 注意：就算失败也不会内存泄漏
+ *                          失败：RET_PTR_NULL 注意：就算失败也不会内存泄漏
  */
 AVLTreeNode* avl_tree_insert(AVLTree* tree, AVLTreeKey key, AVLTreeValue value);
 
@@ -106,8 +108,9 @@ void avl_tree_remove_node(AVLTree* tree, AVLTreeNode* node);
  *
  *  @param tree             树
  *  @param key              要删除节点的 key
- *  @return                 若删除则为   非零
- *                          没找到则为   零
+ *
+ *  @return                 若删除则为   返回 RET_OK
+ *                          没找到则为   返回 RET_NOTFOUND
  */
 int avl_tree_remove(AVLTree* tree, AVLTreeKey key);
 
@@ -117,8 +120,9 @@ int avl_tree_remove(AVLTree* tree, AVLTreeKey key);
  *
  * @param tree            树
  * @param key             要查询的key
+ *
  * @return                成功：返回找到的节点
- *                        失败：返回NULL
+ *                        失败：返回 RET_PTR_NULL
  */
 AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key);
 
@@ -128,8 +132,9 @@ AVLTreeNode *avl_tree_lookup_node(AVLTree *tree, AVLTreeKey key);
  *
  * @param tree            树
  * @param key             要查询的key
- * @return                成功：返回找到的☞
- *                        失败：返回 AVL_TREE_NULL
+ *
+ * @return                成功：返回找到的值
+ *                        失败：返回 AVL_PTR_NULL
  */
 AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
 
@@ -139,7 +144,7 @@ AVLTreeValue avl_tree_lookup(AVLTree *tree, AVLTreeKey key);
  *
  * @param tree            树
  * @return                成功：返回树的根节点
- *                        失败：NULL
+ *                        失败：RET_PTR_NULL
  */
 AVLTreeNode* avl_tree_root_node(AVLTree *tree);
 
@@ -148,7 +153,7 @@ AVLTreeNode* avl_tree_root_node(AVLTree *tree);
  * 检索给定树节点的键
  *
  * @param node            树
- * @return                返回给定树的键
+ * @return                返回给定节点的键
  */
 AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
 
@@ -157,7 +162,7 @@ AVLTreeKey avl_tree_node_key(AVLTreeNode *node);
  * 检索给定树节点的值
  *
  * @param node            树
- * @return                返回给定树的值
+ * @return                返回给定节点的值
  */
 AVLTreeValue avl_tree_node_value(AVLTreeNode *node);
 
@@ -168,7 +173,8 @@ AVLTreeValue avl_tree_node_value(AVLTreeNode *node);
  * @param node            树节点
  * @param side            左边或右边
  * @return                成功：返回子节点
- *                        失败：返回 NULL
+ *
+ *                        失败：返回 RET_PTR_NULL
  */
 AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
 
@@ -178,7 +184,7 @@ AVLTreeNode *avl_tree_node_child(AVLTreeNode *node, AVLTreeNodeSide side);
  *
  * @param node            树节点
  * @return                成功：返回树节点的父节点
- *                        失败：返回NULL
+ *                        失败：返回 RET_PTR_NULL
  */
 AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
 
@@ -187,6 +193,7 @@ AVLTreeNode *avl_tree_node_parent(AVLTreeNode *node);
  * 求字数的高度
  *
  * @param node            子树的根节点
+ *
  * @return                子树的高度
  */
 int avl_tree_subtree_height(AVLTreeNode* node);
@@ -196,6 +203,7 @@ int avl_tree_subtree_height(AVLTreeNode* node);
  * 将数的 key 转换为 C 数组，这将数作为有序集合使用
  *
  * @param tree            树
+ *
  * @return                返回由键组成的数组
  */
 AVLTreeValue *avl_tree_to_array(AVLTree *tree);
@@ -205,6 +213,7 @@ AVLTreeValue *avl_tree_to_array(AVLTree *tree);
  * 检索树的节点数
  *
  * @param tree            树
+ *
  * @return                树的节点数
  */
 unsigned int avl_tree_num_entries(AVLTree *tree);
@@ -217,14 +226,12 @@ void before_print_tree(AVLTreeNode* node, tree_print_key print);
 
 /**
  *  树的中序遍历
- *
  */
 void middle_print_tree(AVLTreeNode* node, tree_print_key print);
 
 
 /**
  *  树的后序遍历
- *
  */
 void postorder_print_tree(AVLTreeNode* node, tree_print_key print);
 #ifdef __cplusplus

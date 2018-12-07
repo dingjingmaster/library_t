@@ -1,14 +1,13 @@
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
-#include <stdlib.h>
-#include <string.h>
+#include "ret.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* 堆空值 */
-#define BINARY_HEAP_NULL ((void *) 0)
+#define BINARY_HEAP_NULL RET_PTR_NULL
 
 /* 堆类型——最大堆/最小堆 */
 typedef enum {
@@ -25,9 +24,9 @@ typedef void* BinaryHeapValue;
 /**
  * 堆中用来比较大小的函数指针类型
  *
- * @return: value1等于value2返回 0
- *          value1小于value2返回 -1
- *          value1大于value2返回 1
+ * @return: value1等于value2返回    RET_EQUAL
+ *          value1小于value2返回    RET_SMALLER
+ *          value1大于value2返回    RET_BIGGER
  */
 typedef int (* binary_heap_compare_cb) (BinaryHeapValue value1, BinaryHeapValue value2);
 
@@ -36,7 +35,8 @@ typedef int (* binary_heap_compare_cb) (BinaryHeapValue value1, BinaryHeapValue 
  * @param type:                     堆类型
  * @param compareFunction:          值比较函数
  *
- * @return 返回新的堆, 如果是 NULL 则返回堆失败
+ * @return 成功：  返回新的堆
+ *         失败： 返回 RET_PTR_NULL
  */
 BinaryHeap* binary_heap_new(BinaryHeapType type, binary_heap_compare_cb compareFunction);
 
@@ -54,7 +54,8 @@ void binary_heap_free(BinaryHeap* heap);
  * @param heap:                     堆
  * @param value:                    要插入的值
  *
- * @return                          0 成功, 否则失败
+ * @return                          成功： RET_OK
+ *                                  失败： RET_ERROR
  */
 int binary_heap_insert(BinaryHeap* heap, BinaryHeapValue value);
 
@@ -63,7 +64,8 @@ int binary_heap_insert(BinaryHeap* heap, BinaryHeapValue value);
  * 弹出堆顶元素
  * @param heap:                     堆
  *
- * @return                          成功:返回堆顶元素, 失败: 返回 BINARY_HEAP_NULL
+ * @return                          成功: 返回堆顶元素
+ *                                  失败: 返回 RET_PTR_NULL
  */
 BinaryHeapValue binary_heap_pop(BinaryHeap* heap);
 
