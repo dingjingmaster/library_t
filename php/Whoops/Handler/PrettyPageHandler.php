@@ -155,9 +155,9 @@ class PrettyPageHandler extends Handler
             if (PHP_SAPI === 'cli') {
                 // Help users who have been relying on an internal test value
                 // fix their code to the proper method
-                if (isset($_ENV['whoops-test'])) {
+                if (isset($_ENV['Whoops-test'])) {
                     throw new \Exception(
-                        'Use handleUnconditionally instead of whoops-test'
+                        'Use handleUnconditionally instead of Whoops-test'
                         .' environment variable'
                     );
                 }
@@ -167,11 +167,11 @@ class PrettyPageHandler extends Handler
         }
 
         $templateFile = $this->getResource("views/layout.html.php");
-        $cssFile      = $this->getResource("css/whoops.base.css");
+        $cssFile      = $this->getResource("css/Whoops.base.css");
         $zeptoFile    = $this->getResource("js/zepto.min.js");
         $prettifyFile = $this->getResource("js/prettify.min.js");
         $clipboard    = $this->getResource("js/clipboard.min.js");
-        $jsFile       = $this->getResource("js/whoops.base.js");
+        $jsFile       = $this->getResource("js/Whoops.base.js");
 
         if ($this->customCss) {
             $customCssFile = $this->getResource($this->customCss);
