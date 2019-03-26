@@ -3,7 +3,6 @@
 
 bin/
 lib/
-main.c
 
 *.pro.user*
 *~
