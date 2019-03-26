@@ -15,12 +15,14 @@ INCLUDEPATH += \
 HEADERS += \
     src/base/jret.h \
     src/data_struct/javl_tree.h \
-    src/data_struct/jbinary_heap.h
+    src/data_struct/jbinary_heap.h \
+    src/data_struct/jset.h
 
 # source
 SOURCES += \
     src/data_struct/javl_tree.c \
-    src/data_struct/jbinary_heap.c
+    src/data_struct/jbinary_heap.c \
+    src/data_struct/jset.cpp
 
 #========================== demo ========================
 SOURCES += \
