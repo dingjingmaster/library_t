@@ -9,6 +9,7 @@ namespace Whoops\Exception;
 use ErrorException as BaseErrorException;
 
 /**
+ * 1
  * Wraps ErrorException; mostly used for typing (at least now)
  * to easily cleanup the stack trace of redundant info.
  */

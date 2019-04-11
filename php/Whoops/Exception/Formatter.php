@@ -9,6 +9,7 @@ namespace Whoops\Exception;
 class Formatter
 {
     /**
+     * 返回一个简单数组中有关异常的所有基本信息
      * Returns all basic information about the exception in a simple array
      * for further convertion to other languages
      * @param  Inspector $inspector
