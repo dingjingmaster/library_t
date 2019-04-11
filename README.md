@@ -21,3 +21,7 @@
 ### php
 
 - Whoops php错误处理
+
+### web
+
+- 泡泡 [泡泡展示](https://www.dingjingmaster.top/usr/uploads/demo/js/paopao.html)
