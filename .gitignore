@@ -3,8 +3,12 @@
 
 .idea/
 jar/
+dist/
 
-
+*.pyc
+*.egg-info
+*.tar.gz
+*.zip
 *.dll
 *.exe
 
