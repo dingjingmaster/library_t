@@ -3,14 +3,22 @@
 import time
 import pyquery
 import requests
+from fake_useragent import UserAgent
 from spider.log import logging as log
 
 
 class Get:
 	def __init__(self, url: str, try_time=9, try_sec=2):
+		ua = UserAgent()
 		self._url = url
 		self._try_time = try_time
 		self._try_sec = try_sec
+		self._header = {
+			'User-Agent': ua.ie,
+			'Accept-Encoding': ', '.join(('gzip', 'deflate')),
+			'Accept': '*/*',
+			'Connection': 'keep-alive',
+		}
 
 	def html(self)-> str:
 		tm = 0
@@ -19,7 +27,8 @@ class Get:
 		while tm <= self._try_time:
 			try:
 				s = requests.Session()
-				r = s.get(self._url)
+				
+				r = s.get(self._url, headers=self._header)
 				if r.status_code == requests.codes.ok:
 					doc = pyquery.PyQuery(r.text.encode(r.encoding))
 					text = doc.html()
@@ -53,3 +62,4 @@ class Get:
 			tm += 1
 		return binary
 
+	

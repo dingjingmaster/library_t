@@ -13,6 +13,7 @@ setup(
 	include_package_date=True,                  # 自动打包文件夹内所有数据
 	install_requires=[                          # 安装依赖的其它包
 		'pyquery',
-		'requests'
+		'requests',
+		'fake-useragent'
 	]
 )
